@@ -1,11 +1,13 @@
 const canvas = document.querySelector("#game");
 const game = canvas.getContext("2d");
 
-window.addEventListener("load", startGame);
+window.addEventListener("load", setCanvasSize);
+window.addEventListener("resize", setCanvasSize);
 
-function startGame() {
-  let canvasSize;
+let canvasSize;
+let elementsSize;
 
+function setCanvasSize() {
   if (window.innerHeight > window.innerWidth) {
     canvasSize = window.innerWidth * 0.8;
   } else {
@@ -15,22 +17,23 @@ function startGame() {
   canvas.setAttribute("width", canvasSize);
   canvas.setAttribute("height", canvasSize);
 
-  const elementsSize = canvasSize / 10;
+  elementsSize = canvasSize / 10;
 
-  console.table(canvasSize, elementsSize);
+  startGame();
+  console.log("Hi");
+}
 
-  game.font = (elementsSize - 11.5) + "px Verdana";
+function startGame() {
+  game.font = elementsSize - 8 + "px Verdana";
   game.textAlign = "end";
 
-  for (let i = 0; i <= 10; i++) {
-    game.fillText(emojis["X"], elementsSize * i, elementsSize);
+  const map = maps[0];
+  const mapRows = maps[1].trim().split("\n");
+  const mapCols = mapRows.map((row) => row.trim().split(""));
+
+  for (let row = 1; row <= 10; row++) {
+    for (let col = 1; col <= 10; col++) {
+      game.fillText(emojis[mapCols[row-1][col-1]], elementsSize * col, elementsSize * row);
+    }
   }
-
-  // game.fillRect(0,0,100,100);
-  //game.fillRect(170,50,100,100);
-  //game.clearRect(0,0,50,50);
-
-  //game.font = "25px Tahoma";
-  //game.fillStyle = "blue";
-  //game.fillText("TEO", 25, 25);
 }
