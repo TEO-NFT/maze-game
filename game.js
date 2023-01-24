@@ -77,15 +77,19 @@ function moveUp() {
 }
 
 function moveLeft() {
-  console.log(2);
+  playerPosition.x -= elementsSize;
+  startGame();
 }
 
 function moveRight() {
-  console.log(3);
+  playerPosition.x += elementsSize;
+
+  startGame();
 }
 
 function moveDown() {
-  console.log(4);
+  playerPosition.y += elementsSize;
+  startGame();
 }
 
 function moveKey(event) {
