@@ -1,11 +1,20 @@
 const canvas = document.querySelector("#game");
 const game = canvas.getContext("2d");
+const buttonUp = document.querySelector("#up");
+const buttonLeft = document.querySelector("#left");
+const buttonRight = document.querySelector("#right");
+const buttonDown = document.querySelector("#down");
 
 window.addEventListener("load", setCanvasSize);
 window.addEventListener("resize", setCanvasSize);
 
 let canvasSize;
 let elementsSize;
+
+const playerPosition = {
+  x: undefined,
+  y: undefined,
+};
 
 function setCanvasSize() {
   if (window.innerHeight > window.innerWidth) {
@@ -28,12 +37,70 @@ function startGame() {
   game.textAlign = "end";
 
   const map = maps[0];
-  const mapRows = maps[1].trim().split("\n");
+  const mapRows = map.trim().split("\n");
   const mapCols = mapRows.map((row) => row.trim().split(""));
 
-  for (let row = 1; row <= 10; row++) {
-    for (let col = 1; col <= 10; col++) {
-      game.fillText(emojis[mapCols[row-1][col-1]], elementsSize * col, elementsSize * row);
-    }
+  mapCols.forEach((row, rowIdx) => {
+    row.forEach((col, colIdx) => {
+      const emoji = emojis[col];
+      const posX = elementsSize * (colIdx + 1);
+      const posY = elementsSize * (rowIdx + 1);
+
+      if (col == "O") {
+        playerPosition.x = posX;
+        playerPosition.y = posY;
+      }
+
+      game.fillText(emoji, posX, posY);
+    });
+  });
+
+  game.fillText(emojis.PLAYER, playerPosition.x, playerPosition.y);
+}
+
+function movePlayer() {
+  game.fillText(emojis.PLAYER, playerPosition.x, playerPosition.y);
+}
+
+window.addEventListener("keydown", moveKey);
+buttonUp.addEventListener("click", moveUp);
+buttonLeft.addEventListener("click", moveLeft);
+buttonRight.addEventListener("click", moveRight);
+buttonDown.addEventListener("click", moveDown);
+
+function moveUp() {
+  playerPosition.y -= elementsSize;
+  movePlayer();
+}
+
+function moveLeft() {
+  console.log(2);
+}
+
+function moveRight() {
+  console.log(3);
+}
+
+function moveDown() {
+  console.log(4);
+}
+
+function moveKey(event) {
+  switch (event.key) {
+    case "ArrowUp":
+      moveUp();
+      break;
+
+    case "ArrowLeft":
+      moveLeft();
+      break;
+
+    case "ArrowRight":
+      moveRight();
+      break;
+
+    case "ArrowDown":
+      moveDown();
+      break;
   }
 }
