@@ -36,7 +36,7 @@ function startGame() {
   game.font = elementsSize - 8 + "px Verdana";
   game.textAlign = "end";
 
-  const map = maps[0];
+  const map = maps[2];
   const mapRows = map.trim().split("\n");
   const mapCols = mapRows.map((row) => row.trim().split(""));
 
