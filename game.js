@@ -42,7 +42,7 @@ function startGame() {
   game.font = elementsSize - 8 + "px Verdana";
   game.textAlign = "end";
 
-  const map = maps[0];
+  const map = maps[4];
   const mapRows = map.trim().split("\n");
   const mapCols = mapRows.map((row) => row.trim().split(""));
 
@@ -58,7 +58,7 @@ function startGame() {
           playerPosition.x = posX;
           playerPosition.y = posY;
         }
-      } else if (col == "I") {
+      } else if (col == "Y") {
         key.x = posX;
         key.y = posY;
       }
@@ -66,7 +66,6 @@ function startGame() {
       game.fillText(emoji, posX, posY);
     });
   });
-  console.log(key);
   movePlayer();
 }
 
